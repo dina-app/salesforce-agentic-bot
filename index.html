@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Agentic Bot</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      h1, h2 {
+        line-height: 1.25;
+      }
+      code {
+        background: rgba(128, 128, 128, 0.15);
+        padding: 0.1rem 0.35rem;
+        border-radius: 4px;
+      }
+      pre {
+        background: rgba(128, 128, 128, 0.15);
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+      a {
+        color: #2563eb;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Salesforce Agentic Bot</h1>
+    <p>
+      Salesforce Agentic Bot is a Chrome extension that adds a right-side assistant workspace for Salesforce admins and developers.
+      It helps inspect the active Salesforce org, browse schema and metadata, open API tools, and chat with OpenAI using the user's own API key.
+    </p>
+
+    <h2>Features</h2>
+    <ul>
+      <li>Right-side Chrome side panel for Salesforce pages.</li>
+      <li>Active Salesforce tab detection with current page title and URL context.</li>
+      <li>Org and user summary for the signed-in Salesforce session.</li>
+      <li>OpenAI chat powered by a user-entered API key stored in Chrome extension storage.</li>
+      <li>Continued chat context using OpenAI <code>previous_response_id</code>.</li>
+      <li>Token usage display for assistant responses.</li>
+      <li>Save useful assistant responses to the Saved tab.</li>
+      <li>Dev Logs tab for background Salesforce/OpenAI request logs.</li>
+      <li>Data Export and REST Explorer extension pages.</li>
+      <li>Schema Viewer with Salesforce-style project explorer layout.</li>
+      <li>
+        Metadata retrieval for objects, Apex, Visualforce, LWC, Aura, flows, layouts, labels, permission sets, profiles,
+        reports, tabs, triggers, workflows, and other supported metadata types.
+      </li>
+      <li>Schema and metadata search with VS Code-like explorer results.</li>
+      <li>XML/JSON detail viewer for retrieved metadata.</li>
+    </ul>
+
+    <h2>Install Locally</h2>
+    <ol>
+      <li>Open Chrome and go to <code>chrome://extensions</code>.</li>
+      <li>Enable <strong>Developer mode</strong>.</li>
+      <li>Click <strong>Load unpacked</strong>.</li>
+      <li>Select the <code>Salesforce Agentic Bot</code> folder.</li>
+      <li>Open a Salesforce page and click the extension icon.</li>
+    </ol>
+
+    <h2>OpenAI API Key</h2>
+    <p>The extension does not ship with an OpenAI API key.</p>
+    <ol>
+      <li>Open the extension on a Salesforce tab.</li>
+      <li>Go to the <strong>Chat</strong> tab.</li>
+      <li>Paste your OpenAI API key into <strong>OpenAI API key</strong>.</li>
+      <li>Click <strong>Save</strong>.</li>
+    </ol>
+    <p>The key is stored locally in Chrome extension storage. You can clear it from the Chat tab.</p>
+
+    <h2>Salesforce Access</h2>
+    <p>
+      The extension uses the current Salesforce browser session. It reads the Salesforce <code>sid</code> cookie for the active
+      Salesforce domain so it can call Salesforce REST, Tooling, and Metadata APIs as the currently signed-in user.
+    </p>
+
+    <h2>Packaging</h2>
+    <p>To create a Chrome Web Store upload zip, run this from inside the extension folder:</p>
+    <pre><code>zip -r -FS ../salesforce-agentic-bot-v0.3.0.zip . -x '*.DS_Store' '__MACOSX/*' '*.zip'</code></pre>
+    <p>The zip must contain <code>manifest.json</code> at the root.</p>
+
+    <h2>Chrome Web Store Submission</h2>
+    <p>
+      Use the root-level <code>CHROME_WEB_STORE_SUBMISSION.md</code> file for permission justifications, data usage selections,
+      and privacy policy guidance.
+    </p>
+    <p>The root-level <code>PRIVACY_POLICY.md</code> file contains a publishable privacy policy.</p>
+
+    <h2>Privacy</h2>
+    <p>
+      The extension stores settings, chat history, saved responses, and retrieved schema metadata locally in the browser.
+      Chat messages and selected Salesforce context are sent to OpenAI only when the user sends a chat message.
+      The extension does not sell user data, does not use advertising, and does not execute remote code.
+    </p>
+
+    <h2>Notes</h2>
+    <ul>
+      <li>The extension is built for Manifest V3.</li>
+      <li>The OpenAI model is configured in <code>openai-config.js</code>.</li>
+      <li>
+        Large metadata retrieves can hit browser storage limits. If that happens, clear retrieved metadata, select fewer metadata
+        types, and retrieve again.
+      </li>
+    </ul>
+  </body>
+</html>
